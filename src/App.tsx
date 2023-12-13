@@ -19,11 +19,12 @@ function App() {
 
   const [startSelection, setStartSelection] = useState(false);
 
-  const intervalRef = useRef<ReturnType<typeof setInterval>>()
-  const playRef = useRef<any>()
-  const playingRef = useRef<any>()
-  const winnerRef = useRef<any>()
   const listRef = useRef<Participant[]>([])
+  const listContainerRef = useRef<HTMLDivElement>(null)
+  const intervalRef = useRef<ReturnType<typeof setInterval>>()
+  const playRef = useRef(new Audio("play.mp3"))
+  const playingRef = useRef(new Audio("playing2.mp3"))
+  const winnerRef = useRef(new Audio("winner.mp3"))
 
   const handleTimer = (e: ChangeEvent<HTMLInputElement>) => {
     const val = Number(e.target.value);
@@ -38,6 +39,7 @@ function App() {
 
     setStartSelection(false);
 
+    playingRef.current.currentTime = 0;
     playingRef.current.pause();
     winnerRef.current.play();
   }
@@ -46,11 +48,17 @@ function App() {
     clearInterval(intervalRef.current);
     setSelected(undefined);
     setStartSelection(false);
+
+    playingRef.current.currentTime = 0;
+    playingRef.current.pause();
+    winnerRef.current.currentTime = 0;
+    winnerRef.current.pause();
   }
 
   const initParticipantSelection = () => {
     playRef.current.play();
     playingRef.current.play();
+    winnerRef.current.currentTime = 0;
     winnerRef.current.pause();
 
     setStartSelection(true);
@@ -67,29 +75,55 @@ function App() {
   }
 
   useEffect(() => {
+    playingRef.current.loop = true
+  }, [])
+
+  useEffect(() => {
     if (list) {
       listRef.current = [...list]
     }
   }, [list])
 
+  useEffect(() => {
+    setTimeout(() => {
+      if (list?.length) {
+        const h = listContainerRef.current?.offsetHeight;
+        const parent_h = listContainerRef.current?.parentElement?.offsetHeight;
+
+        if (h! > parent_h!) {
+          listContainerRef.current!.style.animation = `smoothScroll ${list.length * 0.35}s linear infinite alternate`;
+        } else {
+          listContainerRef.current?.parentElement?.classList.add("d-flex", "align-items-center")
+        }
+      }
+    }, 500);
+
+  }, [startSelection])
+
   return (
     <>
       <div className='bg-header'></div>
-      <audio id="audio" src="play.mp3" ref={playRef}></audio>
-      <audio id="audio" src="playing2.mp3" ref={playingRef} loop></audio>
-      <audio id="audio" src="winner.mp3" ref={winnerRef}></audio>
+      {!!selected && !startSelection && <>
+        <Confetti />
+        <div className='d-flex justify-content-around'>
+          <ConfettiExplosion force={1} zIndex={2} />
+          <ConfettiExplosion force={1} zIndex={2} />
+        </div>
+      </>}
 
       {!!list && <>
         <div className='position-fixed overflow-hidden text-white animate-top'>
-          {!startSelection && list.map(i => <div className='text-uppercase'>{i.Nombres}
-            <p>{i.Apellidos}</p>
-          </div>)}
+          {!startSelection && <div ref={listContainerRef}>
+            {list.map(i => <div className='text-uppercase text-truncate' key={i.id}>{i.Nombres}
+              <p className='text-truncate opacity-75'>{i.Apellidos}</p>
+            </div>)
+            }
+          </div>}
         </div>
         <button className='m-2 btn-sm btn btn-danger position-absolute top-0 end-0' onClick={() => restart()}>Reiniciar</button>
       </>}
 
       <div className='container pb-3'>
-        {!!selected && !startSelection && <><Confetti /></>}
         {
           !list ?
             <div className='d-flex align-items-center justify-content-center flex-column'>
@@ -125,10 +159,6 @@ function App() {
                       <div>
                         <div className='row text-center'>
                           {selected && <div className='col-12 text-center'>
-                            {!startSelection && <div style={{ zIndex: 10, position: 'relative' }}>
-                              <ConfettiExplosion />
-                            </div>
-                            }
                             <h1 className='text-truncate text-uppercase' style={{ fontWeight: 800, fontSize: "60px" }}>
                               {selected?.Nombres}
                             </h1>

@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import * as XLSX from 'xlsx';
 import { Participant } from '../App';
 import { FileUploader } from 'react-drag-drop-files';
