@@ -1,191 +1,175 @@
-import { useState, useCallback, useRef, ChangeEvent } from 'react'
-import viteLogo from '/vite.svg'
+import { useState, useRef, ChangeEvent, useEffect } from 'react'
 import UploadFile from './components/UploadFile';
 import { CountdownCircleTimer } from 'react-countdown-circle-timer';
+import Confetti from 'react-confetti'
+import ConfettiExplosion from 'react-confetti-explosion';
 
 export type Participant = {
   Nombres: string;
   Apellidos: string;
+  __rowNum__: number;
+  id: number;
 }
-const timer = 3;
 
 function App() {
 
   const [selected, setSelected] = useState<Participant>();
   const [list, setList] = useState<Participant[]>();
-  const [currentRound, setCurrentRound] = useState<Participant[]>([]);
-  const [rounds, setRounds] = useState<Array<Participant[]>>([]);
-  const [limit, setLimit] = useState(1)
+  const [timer, setTimer] = useState(30)
 
   const [startSelection, setStartSelection] = useState(false);
 
   const intervalRef = useRef<ReturnType<typeof setInterval>>()
+  const playRef = useRef<any>()
+  const playingRef = useRef<any>()
+  const winnerRef = useRef<any>()
+  const listRef = useRef<Participant[]>([])
 
-  const handleLimit = (e: ChangeEvent<HTMLInputElement>) => {
-    let val = Number(e.target.value);
-
-    if (val > list!.length) {
-      val = list!.length - 1;
-    } else if (val < 1) {
-      val = 1;
-    }
-
-    setLimit(val)
+  const handleTimer = (e: ChangeEvent<HTMLInputElement>) => {
+    const val = Number(e.target.value);
+    setTimer(val)
   }
 
-  const completedCounter = async () => {
+  const completedCounter = () => {
     clearInterval(intervalRef.current);
 
-    let other = false;
-
-    setCurrentRound(cr => {
-      // const lastRound = r[lastIdx];
-      cr.push(selected!)
-
-      if (cr.length < limit) {
-        other = true
-      } else {
-        other = false;
-      }
-      return [...cr]
-    })
+    const idx = listRef.current.findIndex(i => i.id === selected?.id)
+    listRef.current.splice(idx, 1)
 
     setStartSelection(false);
-    if (other) {
-      startRound()
-    }
+
+    playingRef.current.pause();
+    winnerRef.current.play();
+  }
+
+  const restart = () => {
+    clearInterval(intervalRef.current);
+    setSelected(undefined);
+    setStartSelection(false);
   }
 
   const initParticipantSelection = () => {
-    setRounds(r => [...r, currentRound])
-    setCurrentRound([])
+    playRef.current.play();
+    playingRef.current.play();
+    winnerRef.current.pause();
+
+    setStartSelection(true);
     startRound()
   }
 
-  const startRound = useCallback(() => {
-    if (list && list.length > 0) {
-      setStartSelection(true);
+  const startRound = (_list = listRef.current) => {
+    if (_list && _list.length > 0) {
       intervalRef.current = setInterval(() => {
-        const randomIndex = Math.floor(Math.random() * list.length);
-        setSelected(list[randomIndex]);
-      }, 200)
+        const randomIndex = Math.floor(Math.random() * _list.length);
+        setSelected(_list[randomIndex]);
+      }, 250)
+    }
+  }
+
+  useEffect(() => {
+    if (list) {
+      listRef.current = [...list]
     }
   }, [list])
 
-  // console.table(rounds)
-
   return (
-    <div className='container-fluid py-5'>
-      <div className='d-flex gap-4 align-items-center'>
-        <div>
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </div>
-        <h1>Sorteo</h1>
-      </div>
-      <div className='mt-5'></div>
-      {!list ?
-        <div className='d-flex align-items-center justify-content-center flex-column' style={{ height: "70vh" }}>
-          <p className='opacity-50 small'>
-            Seleccione un archivo Excel que contenga dos columnas: "Nombres" y "Apellidos"
-          </p>
-          <div className='card rounded-5 p-5'>
-            <div className='card-body p-5'>
-              <UploadFile callback={l => setList(l)} />
-            </div>
-          </div>
-        </div>
-        :
-        <div className='row'>
-          <div className='col-3'>
+    <>
+      <div className='bg-header'></div>
+      <audio id="audio" src="play.mp3" ref={playRef}></audio>
+      <audio id="audio" src="playing2.mp3" ref={playingRef} loop></audio>
+      <audio id="audio" src="winner.mp3" ref={winnerRef}></audio>
 
-            {list && <>
-              <p>
-                Participantes: {list.length}
+      {!!list && <>
+        <div className='position-fixed overflow-hidden text-white animate-top'>
+          {!startSelection && list.map(i => <div className='text-uppercase'>{i.Nombres}
+            <p>{i.Apellidos}</p>
+          </div>)}
+        </div>
+        <button className='m-2 btn-sm btn btn-danger position-absolute top-0 end-0' onClick={() => restart()}>Reiniciar</button>
+      </>}
+
+      <div className='container pb-3'>
+        {!!selected && !startSelection && <><Confetti /></>}
+        {
+          !list ?
+            <div className='d-flex align-items-center justify-content-center flex-column'>
+              <p className='text-white small'>
+                Seleccione un archivo Excel que contenga dos columnas: "Nombres" y "Apellidos"
               </p>
-              <ol>
-                {list.map((participant, idx) => (
-                  <li key={`participant-${idx}`}>
-                    {participant.Nombres} {participant.Apellidos}
-                  </li>
-                ))}
-              </ol>
-            </>
-            }
-          </div>
+              <div className='card rounded-5 p-5 pb-4'>
+                <div className='card-body p-5'>
+                  <UploadFile callback={l => {
+                    setList(l)
+                  }} />
 
-          <div className='col-6'>
-            <div className='card py-4 px-md-3 rounded-5'>
-              <div className='card-body'>
-                <div className='mb-5'>
-                  <h4>Ronda {rounds.length}</h4>
-                  <div className='my-3 pt-3'>
-                    <div className="row g-3 align-items-center">
-                      <div className="col-auto">
-                        <label htmlFor="limit" className="col-form-label">Participantes a elegir</label>
-                      </div>
-                      <div className="col-auto">
-                        <input
-                          id="limit" placeholder='1'
-                          className="form-control text-center" type='number'
-                          min={1} defaultValue={1}
-                          style={{ width: "100px" }}
-                          onChange={handleLimit}
-                          value={limit}
-                        />
-                      </div>
-                      <div className="col-auto text-end flex-grow-1">
-                        {!startSelection &&
-                          <button className='btn btn-dark' onClick={() => initParticipantSelection()}>Iniciar ronda</button>
-                        }
-                      </div>
-                    </div>
+                  <div className="text-center mt-5">
+                    <label htmlFor="timer" className="col-form-label">Tiempo (segundos)</label>
+                    <input
+                      id="timer" placeholder='3'
+                      className="form-control text-center mx-auto" type='number'
+                      min={3}
+                      style={{ width: "150px" }}
+                      onChange={handleTimer}
+                      value={timer}
+                    />
                   </div>
                 </div>
-                <hr />
-                <div className='mt-5'>
-                  <div>
-                    <div className='row text-center'>
-                      <div className='col-12 mb-5'>
-                        <h2 className='text-truncate'>{selected?.Nombres} {selected?.Apellidos}</h2>
-                      </div>
-
-                      <div className='col-12'>
-                        <div className='d-flex justify-content-center'>
-                          <CountdownCircleTimer
-                            key={`${intervalRef.current}`}
-                            isPlaying={startSelection}
-                            duration={timer}
-                            colors={['#50cb29', '#004777', '#F7B801', '#A30000']}
-                            colorsTime={[5, 3, 1, 0]}
-                            strokeWidth={20}
-                            onComplete={() => { completedCounter() }}
-                          >
-                            {({ remainingTime, color }) => <h1 className="m-0" style={{ color }}>{remainingTime}</h1>}
-                          </CountdownCircleTimer>
+              </div>
+            </div>
+            :
+            <>
+              <div>
+                <div className='card py-4 px-md-3 rounded-5 main-game'>
+                  <div className='card-body'>
+                    <div className=''>
+                      <div>
+                        <div className='row text-center'>
+                          {selected && <div className='col-12 text-center'>
+                            {!startSelection && <div style={{ zIndex: 10, position: 'relative' }}>
+                              <ConfettiExplosion />
+                            </div>
+                            }
+                            <h1 className='text-truncate text-uppercase' style={{ fontWeight: 800, fontSize: "60px" }}>
+                              {selected?.Nombres}
+                            </h1>
+                            <h1 className='text-uppercase text-truncate opacity-75' style={{ fontWeight: 600, fontSize: "50px" }}>
+                              {selected?.Apellidos}
+                            </h1>
+                          </div>}
+                          <div className='col-12'>
+                            <div className='d-flex justify-content-center my-5'>
+                              {startSelection ? <>
+                                <CountdownCircleTimer
+                                  key={`${intervalRef.current}`}
+                                  isPlaying={startSelection}
+                                  duration={timer}
+                                  colors={['#50cb29', '#004777', '#F7B801', '#A30000', "#000"]}
+                                  colorsTime={[Math.floor(timer / 2), Math.floor(timer / 3), Math.floor(timer / 4), 2, 0]}
+                                  strokeWidth={20}
+                                  trailColor='#ffffff'
+                                  onComplete={() => {
+                                    completedCounter()
+                                  }}
+                                >
+                                  {({ remainingTime, color }) => <h1 className="m-0" style={{ color, fontWeight: 800, fontSize: "60px" }}>{remainingTime}</h1>}
+                                </CountdownCircleTimer>
+                              </>
+                                :
+                                <button className='btn start-button btn-dark text-uppercase' onClick={() => initParticipantSelection()}>Iniciar</button>
+                              }
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
-
-          <div className='col'>
-            {/* {rounds.length > 1 && */}
-            <div>
-              <p>
-                Elegidos:
-              </p>
-              <ol>
-                {currentRound.map((p, i) => <li key={i}>{p.Nombres} {p.Apellidos}</li>)}
-              </ol>
-            </div>
-            {/* } */}
-          </div>
-        </div>
-      }
-    </div>
+            </>
+        }
+      </div>
+      <div className='bg-footer'></div>
+    </>
   )
 }
 
