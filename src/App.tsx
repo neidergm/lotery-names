@@ -97,8 +97,7 @@ function App() {
         }
       }
     }, 500);
-
-  }, [startSelection])
+  }, [startSelection, list])
 
   return (
     <>
