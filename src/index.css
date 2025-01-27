@@ -1,4 +1,99 @@
-:root {
+@import "tailwindcss";
+
+/* @tailwind utilities; */
+
+@layer base {
+  html {
+    @apply font-sans antialiased;
+  }
+}
+
+#root {
+  @apply flex min-h-screen bg-gradient-to-r from-indigo-500 to-teal-400;
+
+}
+
+/* .primary-btn {
+  @apply bg-indigo-500 text-white px-4 py-2 rounded-md shadow-md hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2;
+
+} */
+
+/* @keyframes auto-desplazing-names {
+  0% {
+    transform: translateY(calc(0% + 10vh));
+  }
+  100% {
+    transform: translateY(calc(-100% + 90vh));
+  }
+} */
+@keyframes auto-desplazing-names {
+  0% {
+    transform: translateY(0);
+  }
+
+  100% {
+    transform: translateY(-50%);
+  }
+}
+
+@keyframes keyframes-fill {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+
+  50% {
+    transform: scale(1.4);
+  }
+}
+
+@keyframes rotBGimg {
+  0% {
+    transform: rotate(0deg);
+    top: -75%;
+    left: -15%;
+  }
+
+  25% {
+    transform: rotate(60deg);
+    top: -75%;
+    left: 75%;
+  }
+
+  50% {
+    transform: rotate(90deg);
+    left: 75%;
+    top: 75%;
+  }
+
+  75% {
+    transform: rotate(170deg);
+    left: -25%;
+    top: 75%;
+  }
+
+  100% {
+    top: -75%;
+    left: -15%;
+    transform: rotate(360deg);
+  }
+}
+
+.winner-name-card::before {
+  @apply absolute w-1/2 bg-gradient-to-r from-fuchsia-500 to-blue-600 transition-all duration-200 h-full rounded-2xl ;
+  content: ''; 
+  animation: rotBGimg 3s linear infinite;
+  z-index: -1;
+}
+
+.winner-name-card::after {
+  @apply absolute inset-1 rounded-[inherit] bg-gray-800 -z-1;
+  content: '';
+}
+
+
+
+/* :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
@@ -11,7 +106,6 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  -webkit-text-size-adjust: 100%;
 }
 
 a {
@@ -19,144 +113,51 @@ a {
   color: #646cff;
   text-decoration: inherit;
 }
-
 a:hover {
   color: #535bf2;
 }
 
-.card {
-  backdrop-filter: blur(5px) saturate(180%);
-  -webkit-backdrop-filter: blur(5px) saturate(180%);
-  background-color: rgba(255, 255, 255, 0.75);
-  border-radius: 12px;
-  border: 1px solid rgba(209, 213, 219, 0.3);
-}
-
-.start-button {
-  height: 180px;
-  width: 180px;
-  border-radius: 100%;
-  font-weight: 800;
-}
-
-input {
-  border: none !important;
-}
-
 body {
-  overflow-x: hidden;
-  background-image: url('./assets/bg.jpg');
-  position: relative;
   margin: 0;
-  /* display: flex; */
-  /* place-items: center; */
-  width: 100vw;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
   min-height: 100vh;
-  background-position-x: center;
 }
 
-.radius-top-0 {
-  border-top-right-radius: 0px !important;
-  border-top-left-radius: 0px !important;
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
 }
 
-.bg-header {
-  background-image: url('./assets/sorteo.png');
-  width: 100vw;
-  height: 300px;
-  top: 0px;
-  background-repeat: no-repeat;
-  background-position-x: center;
-  background-size: contain;
-  margin-bottom: 20px;
-
-  animation-duration: 0.5s;
-  animation-name: headeranimate;
-  animation-iteration-count: infinite;
-  animation-timing-function: linear;
-}
-
-.bg-footer {
-  background-image: url('./assets/monedas.png');
-  width: 100vw;
-  height: 200px;
-  position: absolute;
-  bottom: 0px;
-  background-repeat: repeat-x;
-  background-position-x: center;
-  /* background-size: contain; */
-  background-position-y: 0;
-  overflow: hidden;
-}
-
-.bg-footer::after {
-  content: " ";
-  background-image: url('./assets/monedas.png');
-  width: 100vw;
-  height: 200px;
-  position: absolute;
-  bottom: -70px;
-  background-repeat: repeat-x;
-  /* background-size: contain; */
-  background-position-y: 30px;
-  background-position-x: -20%;
-}
-
-.main-game {
-  margin-right: auto;
-  margin-left: auto;
-  max-width: 750px;
-  border: 5px solid white;
-}
-
-.container {
-  z-index: 1;
-  position: relative;
-}
-
-.animate-top {
-  height: 100vh;
-  backdrop-filter: blur(7px) saturate(200%);
-  -webkit-backdrop-filter: blur(7px) saturate(200%);
-  background-color: rgba(17, 25, 40, 0.22);
-  border: 1px solid rgba(255, 255, 255, 0.125);
-  top: 0;
-}
-
-.animate-top>div {
-  width: 320px;
-  padding-left: 10px;
-  padding-right: 10px;
-}
-
-.animate-top>div>div {
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
   font-weight: 500;
-  font-size: 30px;
-  padding-bottom: 5px;
-  padding-top: 5px;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+button:hover {
+  border-color: #646cff;
+}
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
 }
 
-.animate-top>div>div>p {
-  font-size: 15px;
-  font-weight: 400;
-}
-
-@keyframes headeranimate {
-  0% {
-    filter: none;
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
   }
-
-  100% {
-    filter: hue-rotate(45deg);
+  a:hover {
+    color: #747bff;
   }
-}
-
-
-@keyframes smoothScroll {
-  0% {
-    transform: translateY(50vh);
- }
-  100% {
-    transform: translateY(calc(100vh - 100% - 50vh))
-   }
-}
+  button {
+    background-color: #f9f9f9;
+  }
+} */
