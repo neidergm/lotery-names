@@ -2,7 +2,8 @@ import clsx from 'clsx'
 import { useRef } from 'react'
 import { CountdownCircleTimer } from 'react-countdown-circle-timer'
 import { IoPause, IoPlay } from 'react-icons/io5'
-import { useGameStatus } from '../context/GameStatusContext'
+import { useGameStore } from '../store/roundStore'
+import { RoundStatus } from '../interfaces/round.interface'
 
 type CountDownProps = {
     duration?: number,
@@ -11,12 +12,12 @@ type CountDownProps = {
 
 export const CountDown = ({ duration = 10, onComplete }: CountDownProps) => {
 
-    const { gameIsPaused, pauseGame } = useGameStatus()
+    const { roundIsPaused, setRoundStatus } = useGameStore()
 
     const lastValue = useRef(duration);
 
     const togglePlaying = () => {
-        pauseGame(!gameIsPaused)
+        setRoundStatus(roundIsPaused ? RoundStatus.STARTED : RoundStatus.PAUSED)
         lastValue.current = duration;
     }
 
@@ -26,7 +27,7 @@ export const CountDown = ({ duration = 10, onComplete }: CountDownProps) => {
                 <label className="text-3xl text-black/50 cursor-pointer select-none place-self-end block">
                     <input
                         type="checkbox"
-                        checked={!gameIsPaused}
+                        checked={!roundIsPaused}
                         onChange={togglePlaying}
                         className="hidden peer"
                     />
@@ -40,7 +41,7 @@ export const CountDown = ({ duration = 10, onComplete }: CountDownProps) => {
                 strokeWidth={20}
                 trailColor='#ffffff50'
 
-                isPlaying={!gameIsPaused}
+                isPlaying={!roundIsPaused}
                 duration={duration}
                 // trailStrokeWidth={10}
                 onComplete={(tet) => {
@@ -54,7 +55,7 @@ export const CountDown = ({ duration = 10, onComplete }: CountDownProps) => {
                     <div className={
                         clsx(
                             'text-6xl font-bold',
-                            { "animate-ping text-7xl": !gameIsPaused && (remainingTime <= 3 && remainingTime > 0) }
+                            { "animate-ping text-7xl": !roundIsPaused && (remainingTime <= 3 && remainingTime > 0) }
                         )
                     }>
                         <div className='pb-2'>

@@ -2,14 +2,14 @@ import Footer from "./components/Footer"
 import Header from "./components/Header"
 import NamesList from "./components/NamesList"
 import PlayGround from "./components/PlayGround"
-import { useGameStatus } from "./context/GameStatusContext"
+import { useGameStore } from "./store/roundStore"
 
 function App() {
-  const { gameIsStarted } = useGameStatus()
+  const { roundIsStarted } = useGameStore()
 
   return (
     <>
-      {!gameIsStarted &&
+      {!roundIsStarted &&
         // <div className="bg-white/30 backdrop-blur border-r border-white/30 w-72 h-screen overflow-hidden sticky top-0 left-0">
         <div className="p-3 h-screen sticky top-0 left-0">
          <div className="bg-gray-800/50 backdrop-blur text-white/70 w-72 rounded-2xl overflow-hidden max-h-full ">

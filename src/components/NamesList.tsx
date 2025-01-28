@@ -1,23 +1,14 @@
-import { useEffect, useMemo, useRef } from "react";
-
-const generateNames = (count: number) => {
-    const baseNames = [
-        "María García", "Juan Rodríguez", "Ana Martínez", "Carlos López",
-        "Laura Sánchez", "José González", "Carmen Pérez", "Miguel Fernández"
-    ];
-
-    const result = [];
-    for (let i = 0; i < count; i++) {
-        result.push(`${i + 1} - ${baseNames[i % baseNames.length]}`);
-    }
-    return result;
-};
+import { useEffect, useRef } from "react";
+import { useParticipantsStore } from "../store/participantsStore";
 
 const NamesList = () => {
+
+    const { participants } = useParticipantsStore();
 
     const namesListContainerRef = useRef<HTMLDivElement>(null);
     const namesSeparatorRef = useRef<HTMLDivElement>(null);
     const SECONDS_PER_ITEM = 0.3;
+
 
     const isListHigherThanScreen = () => {
         const listHeight = namesListContainerRef.current?.clientHeight || 0;
@@ -42,15 +33,13 @@ const NamesList = () => {
         }
     }
 
-    const names = useMemo(() => generateNames(15), []);
-
     const printNames = () => {
-        return names.map((name, index) => (
+        return participants.map((p, index) => (
             <div
-                key={`${name}-${index}`}
+                key={`${p.name}-${index}`}
                 className="pl-8 h-12 flex items-center text-lg hover:bg-gray-100/20"
             >
-                {name}
+                {p.name}
             </div>
         ))
     }
@@ -62,9 +51,9 @@ const NamesList = () => {
         return () => {
             window.removeEventListener('resize', checkHeight);
         };
-    }, [names]);
+    }, [participants]);
 
-    const animationDuration = names.length * SECONDS_PER_ITEM;
+    const animationDuration = participants.length * SECONDS_PER_ITEM;
 
     return (
         <div
