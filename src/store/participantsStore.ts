@@ -8,7 +8,7 @@ type ParticipantsStore = {
     currentWinner?: Participant | null;
    
     setParticipants: (participants: ParticipantsList) => void;
-    setCurrentWinner: (participant: Participant) => void;
+    setCurrentWinner: (participant?: Participant | null) => void;
     // addParticipant: (name: string) => void;
     // removeParticipant: (name: string) => void;
     // clearParticipants: () => void;

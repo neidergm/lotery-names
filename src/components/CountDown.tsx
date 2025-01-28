@@ -1,29 +1,26 @@
 import clsx from 'clsx'
-import { useRef } from 'react'
 import { CountdownCircleTimer } from 'react-countdown-circle-timer'
 import { IoPause, IoPlay } from 'react-icons/io5'
-import { useGameStore } from '../store/roundStore'
+import { useRoundStore } from '../store/roundStore'
 import { RoundStatus } from '../interfaces/round.interface'
+import { useConfigStore } from '../store/configStore'
 
 type CountDownProps = {
-    duration?: number,
     onComplete?: VoidFunction
 }
 
-export const CountDown = ({ duration = 10, onComplete }: CountDownProps) => {
+export const CountDown = ({ onComplete }: CountDownProps) => {
 
-    const { roundIsPaused, setRoundStatus } = useGameStore()
-
-    const lastValue = useRef(duration);
+    const { roundIsPaused, roundIsCompleted, setRoundStatus } = useRoundStore()
+    const { timer } = useConfigStore()
 
     const togglePlaying = () => {
         setRoundStatus(roundIsPaused ? RoundStatus.STARTED : RoundStatus.PAUSED)
-        lastValue.current = duration;
     }
 
     return (
         <div>
-            {lastValue.current > 0 &&
+            {!roundIsCompleted &&
                 <label className="text-3xl text-black/50 cursor-pointer select-none place-self-end block">
                     <input
                         type="checkbox"
@@ -31,7 +28,7 @@ export const CountDown = ({ duration = 10, onComplete }: CountDownProps) => {
                         onChange={togglePlaying}
                         className="hidden peer"
                     />
-                    <IoPlay className={`play peer-checked:hidden animate-[keyframes-fill_0.3s]`} />
+                    <IoPlay className={`play peer-checked:hidden animate-[keyframes-fill_0.3s] animate-bounce`} />
                     <IoPause className={`pause hidden peer-checked:block! animate-[keyframes-fill_0.3s]`} />
                 </label>
             }
@@ -42,12 +39,9 @@ export const CountDown = ({ duration = 10, onComplete }: CountDownProps) => {
                 trailColor='#ffffff50'
 
                 isPlaying={!roundIsPaused}
-                duration={duration}
+                duration={timer}
                 // trailStrokeWidth={10}
-                onComplete={(tet) => {
-                    console.log('onComplete', tet)
-                    lastValue.current = 0;
-                    togglePlaying()
+                onComplete={() => {
                     onComplete?.()
                 }}
             >

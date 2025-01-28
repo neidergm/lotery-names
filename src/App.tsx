@@ -2,10 +2,10 @@ import Footer from "./components/Footer"
 import Header from "./components/Header"
 import NamesList from "./components/NamesList"
 import PlayGround from "./components/PlayGround"
-import { useGameStore } from "./store/roundStore"
+import { useRoundStore } from "./store/roundStore"
 
 function App() {
-  const { roundIsStarted } = useGameStore()
+  const { roundIsStarted } = useRoundStore()
 
   return (
     <>

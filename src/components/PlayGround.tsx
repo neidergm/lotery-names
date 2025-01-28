@@ -1,5 +1,5 @@
 import { RoundStatus } from "../interfaces/round.interface"
-import { useGameStore } from "../store/roundStore"
+import { useRoundStore } from "../store/roundStore"
 import { CountDown } from "./CountDown"
 import PlayButton from "./PlayButton"
 import TimerField from "./TimerField"
@@ -7,7 +7,7 @@ import WinnerPannel from "./WinnerPannel"
 
 const PlayGround = () => {
 
-    const { roundIsStarted, setRoundStatus } = useGameStore()
+    const { roundIsStarted, setRoundStatus, roundIsCompleted } = useRoundStore()
 
     const handlePlay = () => {
         setRoundStatus(RoundStatus.STARTED)
@@ -17,18 +17,19 @@ const PlayGround = () => {
         <div>
             <div>
                 <div className="flex justify-center">
-                    {
-                        roundIsStarted ?
-                            <CountDown onComplete={() => { }} />
+                    {!roundIsCompleted &&
+                        (roundIsStarted ?
+                            <CountDown onComplete={() => { setRoundStatus(RoundStatus.COMPLETED) }} />
                             :
                             <div className="text-center">
                                 <PlayButton onClick={handlePlay} />
                                 <TimerField />
                             </div>
+                        )
                     }
                 </div>
 
-                {roundIsStarted && <WinnerPannel />}
+                {(roundIsStarted || roundIsCompleted) && <WinnerPannel />}
             </div>
             <div>
                 <div>

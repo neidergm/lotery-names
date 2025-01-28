@@ -8,11 +8,14 @@ const Header = () => {
                     width={150}
                     alt="Lottery game"
                 />
-                <h1 className="text-center text-9xl font-extrabold text-white filter drop-shadow-xl">
-                    Lottery
-                </h1>
-                <div className="w-full text-center text-2xl font-bold text-white opacity-70">
-                    Choose a lucky winner in few clicks
+                <div>
+
+                    <h1 className="text-center text-9xl font-extrabold text-white filter drop-shadow-xl">
+                        Lottery
+                    </h1>
+                    <div className="w-full text-center text-2xl font-bold text-white opacity-70 mt-2">
+                        Find a lucky winner
+                    </div>
                 </div>
             </div>
         </section>

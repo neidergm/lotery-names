@@ -21,7 +21,7 @@ const PlayButton = ({ onClick }: PlayButtonProps) => {
    border-b-gray-200
     not-hover:before:h-2/3 not-hover:before:w-2/3
     hover:translate-y-[-0.5rem]
-    hover:shadow-2xl
+    hover:shadow-2xl!
     group
 "
                 onClick={onClick}
