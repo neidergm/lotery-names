@@ -1,0 +1,102 @@
+import clsx from 'clsx';
+import React, { useState } from 'react';
+import { LuFilePlus2 } from 'react-icons/lu';
+import { readExcelFile } from '../helpers/readExcelFile';
+
+const validFileTypes = ['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'application/vnd.ms-excel'];
+
+const validFormat = ['.xlsx', '.xls'];
+
+type FilePickerProps = {
+    onLoadSuccess: (participants: string[][], file: File) => void;
+    onLoadError?: (error: Error) => void;
+};
+
+const FilePicker = ({ onLoadSuccess, onLoadError }: FilePickerProps) => {
+    const [dragging, setDragging] = useState(false);
+
+    const handleDragEnter = (e: React.DragEvent) => {
+        e.preventDefault();
+        e.stopPropagation();
+        setDragging(true);
+    };
+
+    const handleDragLeave = (e: React.DragEvent) => {
+        e.preventDefault();
+        e.stopPropagation();
+        setDragging(false);
+    };
+
+    const handleDragOver = (e: React.DragEvent) => {
+        e.preventDefault();
+        e.stopPropagation();
+    };
+
+    const handleDrop = (e: React.DragEvent) => {
+        e.preventDefault();
+        e.stopPropagation();
+        setDragging(false);
+
+        participantsFromFile(e.dataTransfer.files![0]);
+    };
+
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        participantsFromFile(e.target.files![0]);
+    };
+
+    const participantsFromFile = (file: File) => {
+        if (!file) return;
+        if (!validFileTypes.includes(file.type)) {
+            console.log('Invalid file type');
+            return;
+        }
+        readExcelFile(file).then((data) => {
+            onLoadSuccess(data, file);
+        }).catch((error) => {
+            console.error(error);
+            onLoadError?.(error);
+        });
+    }
+
+    return (
+        <div>
+            <div
+                onDragEnter={handleDragEnter}
+                onDragLeave={handleDragLeave}
+                onDragOver={handleDragOver}
+                onDrop={handleDrop}
+                onClick={() => document.getElementById('fileInput')?.click()}
+                className="transition-all flex items-center justify-center w-full max-w-lg mx-auto p-5 rounded-4xl bg-gray-50/30 dark:bg-gray-700/70 hover:bg-gray-100 dark:border-gray-600/50 dark:hover:border-gray-500 dark:hover:bg-gray-800 backdrop-blur-md"
+            >
+                <div
+                    className={
+                        clsx(
+                            "flex flex-col items-center justify-center",
+                            `transition-all p-3 w-full h-64 border-dashed border-2 rounded-2xl cursor-pointer dark:border-gray-400 border-gray-500`,
+                            { 'border-blue-500!': dragging }
+                        )
+                    }
+                >
+                    <input
+                        id="fileInput"
+                        type="file"
+                        accept={validFormat.join(",")}
+                        className="hidden"
+                        onChange={handleFileChange}
+                    />
+                    <div className="text-center">
+                        <LuFilePlus2 size={50} className='mx-auto text-gray-600 dark:text-gray-400 mb-6' />
+                        <p className="mb-2 text-gray-600 dark:text-gray-300">
+                            <span className="font-semibold">Click to upload</span> or drag and drop
+                        </p>
+                        <p className=" text-gray-600 dark:text-gray-300">
+                            Excel files only (.xlsx, .xls)
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+};
+
+export default FilePicker;
