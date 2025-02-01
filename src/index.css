@@ -21,6 +21,10 @@ button{
   @apply hover:-translate-y-0.5 hover:shadow-md;
 }
 
+table.no-border > td{
+  border: none;
+}
+
 /* .primary-btn {
   @apply bg-indigo-500 text-white px-4 py-2 rounded-md shadow-md hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2;
 
@@ -97,6 +101,16 @@ button{
 .winner-name-card::after {
   @apply absolute inset-1 rounded-[inherit] bg-gray-800 -z-1;
   content: '';
+}
+
+@keyframes winner-name {
+  0% {
+    color: #fff;
+  }
+  
+  100% {
+    color: #000;
+  }
 }
 
 

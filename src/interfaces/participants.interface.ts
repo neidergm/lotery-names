@@ -1,5 +1,3 @@
-export interface Participant {
-    name: string
-}
+export type Participant = string[]
 
 export type ParticipantsList = Participant[]

@@ -1,3 +1,4 @@
+import useAudio from "../hooks/useAudio"
 import { RoundStatus } from "../interfaces/round.interface"
 import { useRoundStore } from "../store/roundStore"
 import { CountDown } from "./CountDown"
@@ -8,9 +9,11 @@ import WinnerPannel from "./WinnerPannel"
 const PlayGround = () => {
 
     const { roundIsStarted, setRoundStatus, roundIsCompleted } = useRoundStore()
+    const audio = useAudio('/play.mp3')
 
     const handlePlay = () => {
         setRoundStatus(RoundStatus.STARTED)
+        audio.play()
     }
 
     return (

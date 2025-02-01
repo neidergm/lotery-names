@@ -1,14 +1,19 @@
-import { useEffect, useRef } from "react";
-import { useParticipantsStore } from "../store/participantsStore";
+import React, { useCallback, useEffect, useRef } from 'react';
+import { useConfigStore } from "../store/configStore";
+import clsx from "clsx";
+import { ParticipantsStyle } from "../interfaces/config.interface";
 
-const NamesList = () => {
+interface Props {
+    participants: string[][];
+}
 
-    const { participants } = useParticipantsStore();
+const NamesList: React.FC<Props> = ({ participants }) => {
+
+    const { participantsAnimationSpeed, participantsStyle } = useConfigStore();
+    const SECONDS_PER_ITEM = participantsAnimationSpeed;
 
     const namesListContainerRef = useRef<HTMLDivElement>(null);
     const namesSeparatorRef = useRef<HTMLDivElement>(null);
-    const SECONDS_PER_ITEM = 0.3;
-
 
     const isListHigherThanScreen = () => {
         const listHeight = namesListContainerRef.current?.clientHeight || 0;
@@ -16,34 +21,43 @@ const NamesList = () => {
         return (listHeight - namesSeparatorRef.current!.clientHeight) / 2 > screenHeight;
     }
 
-    const checkHeight = () => {
+    const checkHeight = useCallback((): void => {
         const animatedClass = 'animate-[auto-desplazing-names_linear_infinite]';
         const higher = isListHigherThanScreen();
+        const container = namesListContainerRef.current;
+        const separator = namesSeparatorRef.current;
 
-        if (higher) {
-            if (!namesListContainerRef.current?.classList.contains(animatedClass)) {
-                namesListContainerRef.current?.classList.add(animatedClass)
-                namesSeparatorRef.current?.classList.add("hidden")
-            }
-        } else {
-            if (namesListContainerRef.current?.classList.contains(animatedClass)) {
-                namesListContainerRef.current?.classList.remove(animatedClass)
-                namesSeparatorRef.current?.classList.remove("hidden")
-            }
+        if (!container) return;
+
+        const hasAnimated = container.classList.contains(animatedClass);
+
+        if (higher && !hasAnimated) {
+            container.classList.add(animatedClass);
+            separator?.classList.add("hidden");
+        } else if (!higher && hasAnimated) {
+            container.classList.remove(animatedClass);
+            separator?.classList.remove("hidden");
         }
-    }
+    }, []);
 
-    const printNames = () => {
+    const printNames = useCallback(() => {
         return participants.map((p, index) => (
             <div
-                key={`${p.name}-${index}`}
-                className="pl-8 h-12 flex items-center text-lg hover:bg-gray-100/20"
+                key={`${p[0]}-${index}`}
+                className="flex items-center hover:bg-gray-100/20"
             >
-                {p.name}
+                <p className="px-6 py-2 truncate">
+                    <span className={clsx(
+                        "pe-2 font-semibold text-2xl text-gray-200",
+                        { "block": participantsStyle !== ParticipantsStyle.INLINE },
+                    )}>
+                        {p[participantsStyle === ParticipantsStyle.UP_DOWN ? 1 : 0]}
+                    </span>
+                    <span className="text-lg">{ p[participantsStyle ===ParticipantsStyle.UP_DOWN ? 0 : 1]}</span>
+                </p>
             </div>
-        ))
-    }
-
+        ));
+    }, [participants, participantsStyle]);
 
     useEffect(() => {
         checkHeight()
@@ -67,5 +81,4 @@ const NamesList = () => {
     );
 };
 
-
-export default NamesList
+export default NamesList;

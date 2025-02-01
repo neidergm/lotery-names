@@ -6,7 +6,7 @@ import { Participant, ParticipantsList } from "../interfaces/participants.interf
 type ParticipantsStore = {
     participants: ParticipantsList;
     currentWinner?: Participant | null;
-   
+
     setParticipants: (participants: ParticipantsList) => void;
     setCurrentWinner: (participant?: Participant | null) => void;
     // addParticipant: (name: string) => void;
@@ -22,7 +22,7 @@ const generateNames = (count: number) => {
 
     const result = [];
     for (let i = 0; i < count; i++) {
-        result.push({ name: `${i + 1} - ${baseNames[i % baseNames.length]}` });
+        result.push([`${i + 1} - ${baseNames[i % baseNames.length]}`]);
     }
     return result;
 };
@@ -30,7 +30,7 @@ const generateNames = (count: number) => {
 
 
 export const useParticipantsStore = create<ParticipantsStore>((set) => ({
-    participants: generateNames(20),
+    participants: generateNames(0),
 
     setParticipants: (participants) => set({ participants }),
     setCurrentWinner: (participant) => set({ currentWinner: participant }),
