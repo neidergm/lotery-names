@@ -26,7 +26,7 @@ const Lobby = () => {
                         file={new File([], 'file.xlsx')}
                     />
                     :
-                    <div>
+                    <div className="px-3">
                         <h2 className='text-3xl text-center font-extrabold mb-5 text-gray-800'>
                             Load participants <FaPeopleGroup className="inline ms-1 " size={40} />
                         </h2>

@@ -18,14 +18,18 @@ function App() {
     <>
       {!roundIsStarted && !!participants.length &&
         // <div className="bg-white/30 backdrop-blur border-r border-white/30 w-72 h-screen overflow-hidden sticky top-0 left-0">
-        <div className={clsx("h-screen sticky top-0 left-0", { "p-3": showList })}>
-          <div className={clsx("absolute left-full", { "p-3": !showList })}>
+        <div className={clsx("h-screen sticky top-0 left-0 px-0", { "lg:p-3": showList })}>
+          <div className={clsx(
+            "absolute left-full p-3 top-1/2 transform -translate-y-1/2",
+            { "lg:p-0": showList }
+          )}>
             <ConfigMenu />
           </div>
 
           <div className={clsx(
             "bg-gray-800/50 backdrop-blur text-white/70 w-72 rounded-2xl overflow-hidden max-h-full transition-all",
-            { "w-0!": !showList }
+            { "w-0!": !showList },
+            "hidden lg:block"
           )
           }>
             <h3 className="w-full absolute z-1 text-center bg-blue-950 text-gray-300 font-extrabold py-2 shadow-2xl">

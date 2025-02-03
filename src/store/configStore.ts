@@ -21,7 +21,7 @@ type ConfigStore = {
 
 const initialState = {
     timer: 10,
-    randomMilisecondsTime: 0.5,
+    randomMilisecondsTime: 0.6,
     participantsAnimationSpeed: 2,
     participantsStyle: ParticipantsStyle.INLINE,
     sound: true,

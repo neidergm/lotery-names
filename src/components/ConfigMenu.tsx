@@ -89,11 +89,11 @@ const ConfigMenu = () => {
                     </span>
                 </div>
             </Tooltip>
-            <Tooltip content={showList ? `Hide participants list` : "Show participants list"} >
+            <Tooltip className="hidden! lg:inline-block!" content={showList ? `Hide participants list` : "Show participants list"} >
                 <div
                     className="p-1 rounded-lg hover:bg-gray-300 cursor-pointer"
                     onClick={changeListVisibility}>
-                    {showList ? <IoChevronBack size={23} /> : <IoChevronForward size={23}/>}
+                    {showList ? <IoChevronBack size={23} /> : <IoChevronForward size={23} />}
                 </div>
             </Tooltip>
         </div>
