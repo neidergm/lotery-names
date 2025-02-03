@@ -7,7 +7,7 @@ const Header = () => {
                     src="/lottery-logo.svg"
                     // width={150}
                     alt="Lottery game"
-                    className="md:w-36 w-28"
+                    className="md:w-36 sm:w-28 w-20"
                 />
                 <div>
 

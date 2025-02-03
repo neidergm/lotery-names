@@ -1,11 +1,21 @@
 @import "tailwindcss";
 
-/* @tailwind utilities; */
+@font-face {
+  font-family: PoetsenOne;
+  /* font-style: normal;
+  font-weight: 200 700;
+  font-display: swap; */
+  src: url("./assets/fonts/Poetsen_One/PoetsenOne-Regular.ttf") format("ttf");
+}
 
 @layer base {
   html {
     @apply font-sans antialiased;
   }
+}
+
+@theme {
+  --petsen-one: "PoetsenOne", "sans-serif"; 
 }
 
 #root {

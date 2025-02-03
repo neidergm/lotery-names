@@ -10,7 +10,7 @@ import { useConfigStore } from "./store/configStore"
 import clsx from "clsx"
 
 function App() {
-  const { roundIsStarted } = useRoundStore()
+  const { roundIsStarted, roundIsCompleted } = useRoundStore()
   const { participants } = useParticipantsStore()
   const { showList } = useConfigStore()
 
@@ -21,7 +21,7 @@ function App() {
         <div className={clsx("h-screen sticky top-0 left-0 px-0", { "lg:p-3": showList })}>
           <div className={clsx(
             "absolute left-full p-3 top-1/2 transform -translate-y-1/2",
-            { "lg:p-0": showList }
+            { "lg:p-0": showList, "hidden lg:block": roundIsCompleted }
           )}>
             <ConfigMenu />
           </div>
@@ -45,7 +45,7 @@ function App() {
         <div>
           <Header />
         </div>
-        <div className="container mx-auto">
+        <div className="px-2 container mx-auto">
           {participants.length ? <PlayGround /> : <Lobby />}
         </div>
         <div className="flex flex-col place-content-end">

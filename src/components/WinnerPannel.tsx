@@ -7,6 +7,7 @@ import { IoArrowBack } from "react-icons/io5"
 import { useConfigStore } from "../store/configStore"
 import ConfettiExplosion from "react-confetti-explosion"
 import useAudio from "../hooks/useAudio"
+import CustomConfetti from './CustomConfetti';
 
 const WinnerPannel = () => {
     const { roundIsPaused, roundIsCompleted, resetRoundStatus } = useRoundStore();
@@ -46,8 +47,10 @@ const WinnerPannel = () => {
 
     if (roundIsCompleted) {
         return <>
-            <div className="relative rounded-4xl bg-white/40 backdrop-blur-xl max-w-2xl mx-auto mt-10">
-                <span className="absolute font-extrabold -top-10 left-24 text-5xl -rotate-3 py-3 px-9 bg-white rounded-2xl text-indigo-400 shadow">
+            <div className="relative rounded-4xl bg-white/40 backdrop-blur-xl max-w-2xl mx-auto mt-10 z-10">
+                <span
+                    className="absolute font-extrabold -top-6 left-18 sm:-top-10 sm:left-24 text-3xl sm:text-5xl -rotate-3 py-3 px-9 bg-white rounded-2xl text-indigo-400 shadow"
+                >
                     ¡WINNER!
                 </span>
                 <div className=" rounded-4xl border-gradient">
@@ -68,7 +71,7 @@ const WinnerPannel = () => {
                             particleCount={250}
                             width={1600}
                         />
-                        <p className="text-5xl font-extrabold  drop-shadow-2xl mt-9 text-center px-4 py-10">
+                        <p className="text-2xl md:text-5xl font-extrabold drop-shadow-2xl mt-9 text-center px-4 py-10">
                             {currentWinner ? <>
                                 <span className="block">{currentWinner[0]}</span>
                                 <span className="text-3xl ">{currentWinner[1]}</span>
@@ -79,10 +82,11 @@ const WinnerPannel = () => {
                     </div>
                 </div>
             </div>
+            <CustomConfetti />
             <div>
                 <button
                     onClick={goBack}
-                    className="flex items-center gap-2 mx-auto mt-7 px-4 py-2 text-white bg-blue-500 rounded-lg font-bold hover:bg-blue-950 "
+                    className="flex items-center gap-2 mx-auto mt-7 px-4 py-2 text-white bg-indigo-500 rounded-lg font-bold hover:bg-blue-950 "
                 >
                     <IoArrowBack size={25} /> Go back
                 </button>
@@ -98,7 +102,7 @@ const WinnerPannel = () => {
                 { "before:content-none!": roundIsPaused || roundIsCompleted }
             )}
         >
-            <div className="text-5xl font-bold text-gray-200">
+            <div className="text-3xl md:text-5xl font-bold text-gray-200 text-center px-4">
                 {roundIsPaused ?
                     <div className="animate-pulse">Paused</div>
                     :

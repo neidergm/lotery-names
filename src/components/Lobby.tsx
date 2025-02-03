@@ -27,7 +27,7 @@ const Lobby = () => {
                     />
                     :
                     <div className="px-3">
-                        <h2 className='text-3xl text-center font-extrabold mb-5 text-gray-800'>
+                        <h2 className='text-xl lg:text-3xl text-center font-extrabold mb-3 text-gray-700'>
                             Load participants <FaPeopleGroup className="inline ms-1 " size={40} />
                         </h2>
                         <FilePicker
