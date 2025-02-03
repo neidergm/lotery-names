@@ -18,9 +18,9 @@ function App() {
     <>
       {!roundIsStarted && !!participants.length &&
         // <div className="bg-white/30 backdrop-blur border-r border-white/30 w-72 h-screen overflow-hidden sticky top-0 left-0">
-        <div className={clsx("h-screen sticky top-0 left-0 px-0", { "lg:p-3": showList })}>
+        <div className={clsx("h-screen sticky top-0 left-0 px-0", { "lg:p-3 pr-0!": showList })}>
           <div className={clsx(
-            "absolute left-full p-3 top-1/2 transform -translate-y-1/2",
+            "absolute left-full p-3 pl-0 top-1/2 transform -translate-y-1/2 ms-3",
             { "lg:p-0": showList, "hidden lg:block": roundIsCompleted }
           )}>
             <ConfigMenu />
