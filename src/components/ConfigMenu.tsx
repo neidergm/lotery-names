@@ -4,6 +4,7 @@ import { useConfigStore } from "../store/configStore"
 import { ParticipantsStyle } from "../interfaces/config.interface"
 import { useParticipantsStore } from "../store/participantsStore"
 import Tooltip from "./Tooltip"
+import { useRoundStore } from "../store/roundStore"
 
 const ConfigMenu = () => {
     const {
@@ -17,7 +18,8 @@ const ConfigMenu = () => {
         setParticipantsAnimationDuration,
     } = useConfigStore();
 
-    const { setParticipants } = useParticipantsStore()
+    const { setParticipantsReady } = useParticipantsStore()
+    const { roundIsCompleted } = useRoundStore()
 
     const participantsStyleObject = {
         [ParticipantsStyle.INLINE]: <PiAlignLeftSimple size={23} />,
@@ -54,15 +56,16 @@ const ConfigMenu = () => {
     return (
         <div className="text-gray-700 flex flex-col gap-2 bg-gray-200 rounded-xl py-3 px-1 shadow-2xl">
 
-            <Tooltip content="Go back to lobby" >
+            {!roundIsCompleted && <><Tooltip content="Go back to lobby" >
                 <div
                     className="p-1 rounded-lg hover:bg-gray-300 cursor-pointer"
-                    onClick={() => setParticipants([])}
+                    onClick={() => setParticipantsReady(false)}
                 >
                     <IoHomeOutline size={23} />
                 </div>
             </Tooltip>
-            <div className="border-t border-gray-300 w-full rounded-xl"></div>
+                <div className="border-t border-gray-300 w-full rounded-xl"></div>
+            </>}
             <Tooltip content={sound ? "Volume off" : "Volume on"} >
                 <div
                     className="p-1 rounded-lg hover:bg-gray-300 cursor-pointer"
@@ -89,11 +92,11 @@ const ConfigMenu = () => {
                     </span>
                 </div>
             </Tooltip>
-            <Tooltip content={showList ? `Hide participants list` : "Show participants list"} >
+            <Tooltip className="hidden! lg:inline-block!" content={showList ? `Hide participants list` : "Show participants list"} >
                 <div
                     className="p-1 rounded-lg hover:bg-gray-300 cursor-pointer"
                     onClick={changeListVisibility}>
-                    {showList ? <IoChevronBack size={23} /> : <IoChevronForward size={23}/>}
+                    {showList ? <IoChevronBack size={23} /> : <IoChevronForward size={23} />}
                 </div>
             </Tooltip>
         </div>

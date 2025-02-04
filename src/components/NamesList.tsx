@@ -22,7 +22,7 @@ const NamesList: React.FC<Props> = ({ participants }) => {
     }
 
     const checkHeight = useCallback((): void => {
-        const animatedClass = 'animate-[auto-desplazing-names_linear_infinite]';
+        const animatedClass = 'lg:animate-[auto-desplazing-names_linear_infinite]';
         const higher = isListHigherThanScreen();
         const container = namesListContainerRef.current;
         const separator = namesSeparatorRef.current;
@@ -53,7 +53,7 @@ const NamesList: React.FC<Props> = ({ participants }) => {
                     )}>
                         {p[participantsStyle === ParticipantsStyle.UP_DOWN ? 1 : 0]}
                     </span>
-                    <span className="text-lg">{ p[participantsStyle ===ParticipantsStyle.UP_DOWN ? 0 : 1]}</span>
+                    <span className="text-lg">{p[participantsStyle === ParticipantsStyle.UP_DOWN ? 0 : 1]}</span>
                 </p>
             </div>
         ));
@@ -65,12 +65,13 @@ const NamesList: React.FC<Props> = ({ participants }) => {
         return () => {
             window.removeEventListener('resize', checkHeight);
         };
-    }, [participants]);
+    }, [participants, participantsStyle]);
 
     const animationDuration = participants.length * SECONDS_PER_ITEM;
 
     return (
         <div
+            className='pt-10'
             ref={namesListContainerRef}
             style={{ 'animationDuration': `${animationDuration}s` }}
         >
