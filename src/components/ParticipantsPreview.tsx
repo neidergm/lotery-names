@@ -11,12 +11,12 @@ type ParticipantsPreviewProps = {
 const ParticipantsPreview = ({ participants, handleContinue, file, changeFile }: ParticipantsPreviewProps) => {
 
     const continueButton = <button
-        onClick={handleContinue}
+        onClick={() => handleContinue()}
         className='py-3 justify-between grow sm:grow-0 px-10 font-extrabold rounded-xl inline-flex items-center bg-gray-700 text-white hover:bg-gray-900'
     >
         Continue &nbsp; <IoArrowForward size={25} />
     </button>
-    
+
     return (
         <div className='flex flex-col items-center'>
             <div className='w-full max-w-screen xl:max-w-2xl'>

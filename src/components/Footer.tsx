@@ -1,3 +1,6 @@
+import AboutGame from "./AboutGame"
+import HowToUse from "./HowToUse"
+import PrivacyPolicy from "./PrivacyPolicy"
 
 const Footer = () => {
     return (
@@ -24,9 +27,15 @@ const Footer = () => {
                     <div className="border-r border-gray-500/40 h-24"></div>
                     {/* <div> */}
                     <div className="flex items-center xl:gap-4 text-gray-300 text-nowrap flex-wrap h-fit">
-                        <a href="#" className="hover:bg-white/10 hover:text-white rounded-xl p-2 sm:px-4">How it works</a>
-                        <a href="#" className="hover:bg-white/10 hover:text-white rounded-xl p-2 sm:px-4">About the game</a>
-                        <a href="#" className="hover:bg-white/10 hover:text-white rounded-xl p-2 sm:px-4">Privacy Policy</a>
+                        <HowToUse>
+                            <a href="#" className="hover:bg-white/10 hover:text-white rounded-xl p-2 sm:px-4">How to use</a>
+                        </HowToUse>
+                        <AboutGame>
+                            <a href="#" className="hover:bg-white/10 hover:text-white rounded-xl p-2 sm:px-4">About the game</a>
+                        </AboutGame>
+                        <PrivacyPolicy>
+                            <a href="#" className="hover:bg-white/10 hover:text-white rounded-xl p-2 sm:px-4">Privacy Policy</a>
+                        </PrivacyPolicy>
                     </div>
                     {/* </div> */}
                 </div>
