@@ -16,7 +16,7 @@ const HowToUse = ({ children }: HowToUseProps) => {
             <Modal
                 isOpen={isOpen}
                 onClose={() => setIsOpen(false)}
-                title="How to Use Lottery"
+                title="How to Use RaffleNG"
                 icon={<IoInformationCircle size={24} className="text-indigo-500" />}
                 iconBgColor="bg-blue-100"
             >
