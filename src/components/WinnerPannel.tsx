@@ -7,7 +7,6 @@ import { IoArrowBack } from "react-icons/io5"
 import { useConfigStore } from "../store/configStore"
 import ConfettiExplosion from "react-confetti-explosion"
 import useAudio from "../hooks/useAudio"
-import CustomConfetti from './CustomConfetti';
 
 const WinnerPannel = () => {
     const { roundIsPaused, roundIsCompleted, resetRoundStatus } = useRoundStore();
@@ -71,7 +70,7 @@ const WinnerPannel = () => {
                             particleCount={250}
                             width={1600}
                         />
-                        <p className="text-2xl md:text-5xl font-extrabold drop-shadow-2xl mt-9 text-center px-4 py-10">
+                        <p className="text-4xl md:text-5xl font-extrabold drop-shadow-2xl mt-9 text-center px-4 py-10">
                             {currentWinner ? <>
                                 <span className="block">{currentWinner[0]}</span>
                                 <span className="text-3xl ">{currentWinner[1]}</span>
@@ -82,7 +81,6 @@ const WinnerPannel = () => {
                     </div>
                 </div>
             </div>
-            <CustomConfetti />
             <div>
                 <button
                     onClick={goBack}

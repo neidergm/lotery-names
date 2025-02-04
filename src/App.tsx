@@ -11,12 +11,12 @@ import clsx from "clsx"
 
 function App() {
   const { roundIsStarted, roundIsCompleted } = useRoundStore()
-  const { participants } = useParticipantsStore()
+  const { participantsReady, participants } = useParticipantsStore()
   const { showList } = useConfigStore()
 
   return (
     <>
-      {!roundIsStarted && !!participants.length &&
+      {!roundIsStarted && participantsReady &&
         // <div className="bg-white/30 backdrop-blur border-r border-white/30 w-72 h-screen overflow-hidden sticky top-0 left-0">
         <div className={clsx("h-screen sticky top-0 left-0 px-0", { "lg:p-3 pr-0!": showList })}>
           <div className={clsx(
@@ -46,7 +46,7 @@ function App() {
           <Header />
         </div>
         <div className="px-2 container mx-auto">
-          {participants.length ? <PlayGround /> : <Lobby />}
+          {participantsReady ? <PlayGround /> : <Lobby />}
         </div>
         <div className="flex flex-col place-content-end">
           <Footer />

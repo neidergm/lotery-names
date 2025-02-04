@@ -87,14 +87,14 @@ const FilePicker = ({ onLoadSuccess, onLoadError, children }: FilePickerProps) =
                     />
                     <div className={clsx("text-center", {"animate-bounce":dragging})}>
                         <LuFilePlus2 size={45} className='mx-auto text-gray-600 dark:text-gray-400 -mt-7  inline-block lg:block lg:mb-6' />
-                        <p className='inline-block ps-3 lg:ps-0'>
+                        <div className='inline-block ps-3 lg:ps-0'>
                             <p className="mb-2 text-gray-600 dark:text-gray-300">
                                 <span className="font-semibold">Click to upload</span> or drag and drop
                             </p>
                             <p className=" text-gray-600 dark:text-gray-300">
                                 Excel files only (.xlsx, .xls)
                             </p>
-                        </p>
+                        </div>
                     </div>
                 </div>
             </div>
