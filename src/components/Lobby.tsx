@@ -61,7 +61,7 @@ const Lobby = () => {
                         file={new File([], 'file.xlsx')}
                     />
                     :
-                    <div className="flex gap-10 xl:gap-16 sm:gap-14 justify-center flex-col lg:flex-row mt-5">
+                    <div className="flex gap-10 2xl:gap-16 sm:gap-12 justify-center flex-col md:flex-row mt-5">
                         <div>
                             <FilePicker
                                 onLoadSuccess={(p) => {
@@ -69,12 +69,12 @@ const Lobby = () => {
                                     setFileLoaded(true)
                                 }}
                             >
-                                <h2 className='text-gray-200 sm:pb-4 pt-1 sm:pt-0 text-lg lg:text-2xl text-center font-extrabold mb-3'>
+                                <h2 className='text-gray-200 sm:pb-4 pt-1 sm:pt-0 text-lg lg:text-2xl text-center  font-poetsen mb-3'>
                                     Upload participants <FaPeopleGroup className="inline ms-1 " size={32} />
                                 </h2>
                             </FilePicker>
                         </div>
-                        <div className="lg:border-r border-t border-white/40 relative border-dashed ">
+                        <div className="md:border-r border-t border-white/40 relative border-dashed  font-poetsen">
                             <div className="absolute bg-white rounded-3xl px-2 text-gray-800 font-bold top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 size-10 flex justify-center items-center">
                                 OR
                             </div>
@@ -84,7 +84,7 @@ const Lobby = () => {
                                 defaultValue={fileLoaded ? undefined : participantsToReview}
                                 onContinue={l => handleContinue("manual", l)}
                             >
-                                <h2 className='text-lg sm:pb-4 pt-2 sm:pt-0 lg:text-2xl text-center font-extrabold mb-3 text-gray-700'>
+                                <h2 className='text-lg sm:pb-4 pt-2 sm:pt-0 lg:text-2xl text-center font-poetsen mb-3 text-gray-700'>
                                     Manual inscription <FaRegHandPointDown className="inline ms-1 " size={32} />
                                 </h2>
                             </ManualInscriptionField>

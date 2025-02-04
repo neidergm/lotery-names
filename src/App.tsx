@@ -29,10 +29,10 @@ function App() {
           <div className={clsx(
             "bg-gray-800/50 backdrop-blur text-white/70 w-72 rounded-2xl overflow-hidden max-h-full transition-all",
             { "w-0!": !showList },
-            "hidden lg:block"
+            "hidden lg:block font-poetsen"
           )
           }>
-            <h3 className="w-full absolute z-1 text-center bg-blue-950 text-gray-300 font-extrabold py-2 shadow-2xl">
+            <h3 className="w-full absolute z-1 text-center bg-blue-950 text-gray-300 py-2 shadow-2xl">
               {participants.length} Participants
             </h3>
             <NamesList participants={participants} />
@@ -40,7 +40,7 @@ function App() {
         </div>
       }
 
-      <main className="flex flex-col min-h-screen grow gap-10 justify-between">
+      <main className="flex flex-col min-h-screen grow gap-10 justify-between ">
 
         <div>
           <Header />

@@ -48,7 +48,7 @@ export const CountDown = ({ onComplete }: CountDownProps) => {
                 {({ remainingTime }) =>
                     <div className={
                         clsx(
-                            'text-6xl font-bold',
+                            'text-6xl font-poetsen',
                             { "animate-ping text-7xl": !roundIsPaused && (remainingTime <= 3 && remainingTime > 0) }
                         )
                     }>

@@ -30,10 +30,10 @@ const PlayButton = ({ onClick }: PlayButtonProps) => {
                     <IoPlay className="size-30 ml-5 text-gray-900" />
                 </span>
                 <span className="group-hover:hidden">
-                    <span className="block mb-4 text-3xl font-extrabold">
+                    <h4 className="block mb-4 text-3xl font-extrabold font-poetsen">
                         PLAY
-                    </span>
-                    <span>
+                    </h4>
+                    <span className='font-normal'>
                         ¡Pick a random winner!
                     </span>
                 </span>

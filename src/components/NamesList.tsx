@@ -71,7 +71,7 @@ const NamesList: React.FC<Props> = ({ participants }) => {
 
     return (
         <div
-            className='pt-10'
+            className='mt-10'
             ref={namesListContainerRef}
             style={{ 'animationDuration': `${animationDuration}s` }}
         >
