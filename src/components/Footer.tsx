@@ -10,10 +10,10 @@ const Footer = () => {
                     <div>
                         <div className="flex items-center sm:gap-3 md:gap-4 select-none flex-col sm:flex-row">
                             <div className="w-10 md:w-auto">
-                                <img alt="Lottery" src="/lottery-logo.svg" width="80" />
+                                <img alt="RaffleNG" src="/raffleng-logo.svg" width="80" />
                             </div>
                             <div>
-                                <p className="text-xl md:text-4xl font-extrabold ">Lottery</p>
+                                <p className="text-xl md:text-4xl font-extrabold ">RaffleNG</p>
                                 <p className="opacity-50 font-semibold text-sm">Created by NG</p>
                                 <p className="opacity-50 mt-3 text-xs text-nowrap">
                                     &copy; {new Date().getFullYear()} - All rights reserved
@@ -39,24 +39,3 @@ const Footer = () => {
 }
 
 export default Footer
-
-// const Footer = () => {
-//     return (
-//         <div className="text-center text-white bg-gray-800 p-5 bg-opacity-85 w-full">
-//             <div>
-//                 {/* Ads place */}
-//             </div>
-//             <div>
-//                 How it works
-//                 How to use
-//                 Create a lottery with a few clicks
-//             </div>
-//             <div>
-//                 &copy; lottery, {new Date().getFullYear()} all rights reserved
-//                 Created by NG
-//             </div>
-//         </div>
-//     )
-// }
-
-// export default Footer

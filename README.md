@@ -1,6 +1,6 @@
-# Lottery Game
+# RaffleNG Game
 
-A React-based web application for running lottery drawings with an animated interface and customizable settings.
+A React-based web application for running raffles drawings with an animated interface and customizable settings.
 
 ## Features
 
