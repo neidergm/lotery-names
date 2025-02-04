@@ -21,11 +21,10 @@ const HowToUse = ({ children }: HowToUseProps) => {
                 iconBgColor="bg-blue-100"
             >
                 <div className="text-gray-600 text-wrap">
-                    <h4 className="font-semibold mb-3">Step-by-Step Guide</h4>
 
                     <div className="space-y-4">
                         <div>
-                            <h5 className="font-medium text-gray-700">1. Add Participants</h5>
+                            <h5 className=" font-poetsen text-gray-700">1. Add Participants</h5>
                             <p className="text-sm pl-4">
                                 - Upload Excel file (.xlsx, .xls) with participant list, or<br />
                                 - Enter names manually, one per line
@@ -33,7 +32,7 @@ const HowToUse = ({ children }: HowToUseProps) => {
                         </div>
 
                         <div>
-                            <h5 className="font-medium text-gray-700">2. Configure Settings</h5>
+                            <h5 className=" font-poetsen text-gray-700">2. Configure Settings</h5>
                             <p className="text-sm pl-4">
                                 - Adjust timer duration (5-120 seconds)<br />
                                 - Toggle sound effects<br />
@@ -42,7 +41,7 @@ const HowToUse = ({ children }: HowToUseProps) => {
                         </div>
 
                         <div>
-                            <h5 className="font-medium text-gray-700">3. Start the Draw</h5>
+                            <h5 className=" font-poetsen text-gray-700">3. Start the Draw</h5>
                             <p className="text-sm pl-4">
                                 - Click the PLAY button to begin<br />
                                 - Watch names shuffle during countdown<br />
@@ -51,7 +50,7 @@ const HowToUse = ({ children }: HowToUseProps) => {
                         </div>
 
                         <div>
-                            <h5 className="font-medium text-gray-700">4. Winner Selection</h5>
+                            <h5 className=" font-poetsen text-gray-700">4. Winner Selection</h5>
                             <p className="text-sm pl-4">
                                 - Timer will count down to zero<br />
                                 - Winner is randomly selected<br />

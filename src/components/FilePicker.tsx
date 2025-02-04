@@ -66,14 +66,14 @@ const FilePicker = ({ onLoadSuccess, onLoadError, children }: FilePickerProps) =
                 onDragOver={handleDragOver}
                 onDrop={handleDrop}
                 onClick={() => document.getElementById('fileInput')?.click()}
-                className="transition-all flex flex-col items-center justify-center lg:min-w-md p-2 sm:p-5 rounded-3xl lg:rounded-4xl bg-gray-50/30 dark:bg-gray-700/70 hover:bg-gray-100 dark:border-gray-600/50 dark:hover:border-gray-500 dark:hover:bg-gray-800 backdrop-blur-md"
+                className="transition-all flex flex-col items-center justify-center w-full md:min-w-xs lg:min-w-sm p-3 sm:p-4 md:p-5 rounded-3xl lg:rounded-4xl bg-gray-50/30 dark:bg-gray-700/70 hover:bg-gray-100 dark:border-gray-600/50 dark:hover:border-gray-500 dark:hover:bg-gray-800 backdrop-blur-md"
             >
                 {children}
                 <div
                     className={
                         clsx(
-                            "flex flex-col items-center justify-center",
-                            `transition-all p-2 sm:p-3 w-full lg:h-64 border-dashed border lg:border-2 rounded-2xl cursor-pointer dark:border-gray-400 border-gray-500`,
+                            "flex flex-col items-center w-full justify-center",
+                            `transition-all p-2 sm:p-3 md:h-64 border-dashed border md:border-2 rounded-2xl cursor-pointer dark:border-gray-400 border-gray-500`,
                             { 'border-blue-500!': dragging }
                         )
                     }
@@ -86,7 +86,7 @@ const FilePicker = ({ onLoadSuccess, onLoadError, children }: FilePickerProps) =
                         onChange={handleFileChange}
                     />
                     <div className={clsx("text-center", {"animate-bounce":dragging})}>
-                        <LuFilePlus2 size={45} className='mx-auto text-gray-600 dark:text-gray-400 -mt-7  inline-block lg:block lg:mb-6' />
+                        <LuFilePlus2 size={45} className='mx-auto text-gray-600 dark:text-gray-400 -mt-7 inline-block md:block md:mb-6' />
                         <div className='inline-block ps-3 lg:ps-0'>
                             <p className="mb-2 text-gray-600 dark:text-gray-300">
                                 <span className="font-semibold">Click to upload</span> or drag and drop

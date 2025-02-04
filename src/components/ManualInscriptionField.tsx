@@ -41,7 +41,7 @@ const ManualInscriptionField = ({ children, onContinue, defaultValue }: ManualIn
     return (
         <>
             <div
-                className="relative transition-all flex flex-col items-center justify-center w-full lg:min-w-md xl:max-w-xl p-2 sm:p-5 rounded-3xl sm:rounded-4xl bg-white backdrop-blur-md"
+                className="relative transition-all flex flex-col items-center justify-center w-full md:min-w-xs lg:min-w-sm p-3 sm:p-4 md:p-5 rounded-3xl sm:rounded-4xl bg-white/75 backdrop-blur-md"
             >
                 {children}
                 <textarea
@@ -51,7 +51,7 @@ const ManualInscriptionField = ({ children, onContinue, defaultValue }: ManualIn
                     // }}
                     // onBlur={() => listFromValue()}
                     placeholder="Enter participants (one per line)"
-                    className="w-full p-3 focus:border-none border-2 border-dashed border-gray-200 rounded-2xl bg-white min-h-60 h-64 focus:outline-none focus:ring-3 focus:ring-indigo-500"
+                    className="w-full p-3 focus:border-none border-2 border-dashed border-gray-300 rounded-2xl h-64 focus:outline-none focus:ring-3 focus:ring-indigo-500"
                 />
                 {/* {!!names.length && <>
                     <div className="absolute bottom-3 right-3 font-bold bg-indigo-400 rounded-full text-white py-1 px-2 flex justify-center items-center border-4 border-white">
@@ -63,7 +63,7 @@ const ManualInscriptionField = ({ children, onContinue, defaultValue }: ManualIn
             <div className='mt-5 text-center lg:text-end'>
                 <button
                     onClick={handleContinue}
-                    className='py-3 justify-between grow sm:grow-0 px-10 font-extrabold rounded-xl inline-flex items-center bg-indigo-500 text-white hover:bg-indigo-600'
+                    className='py-3 justify-between grow sm:grow-0 px-10 rounded-xl inline-flex items-center bg-indigo-500 text-white hover:bg-indigo-600'
                 >
                     Continue &nbsp; <IoArrowForward size={25} />
                 </button>

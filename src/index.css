@@ -1,11 +1,12 @@
 @import "tailwindcss";
 
 @font-face {
-  font-family: PoetsenOne;
-  /* font-style: normal;
-  font-weight: 200 700;
-  font-display: swap; */
-  src: url("./assets/fonts/Poetsen_One/PoetsenOne-Regular.ttf") format("ttf");
+  font-family: 'PoetsenOne';
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+  /* font-weight: 200 700; */
+  src: url("./assets/fonts/Poetsen_One/PoetsenOne-Regular.ttf");
 }
 
 @layer base {
@@ -15,7 +16,7 @@
 }
 
 @theme {
-  --petsen-one: "PoetsenOne", "sans-serif"; 
+  --font-poetsen: "PoetsenOne", "consola"; 
 }
 
 #root {
@@ -28,11 +29,7 @@ button, a {
 }
 
 button{
-  @apply hover:-translate-y-0.5 hover:shadow-md;
-}
-
-table.no-border > td{
-  border: none;
+  @apply hover:-translate-y-0.5 hover:shadow-md font-poetsen;
 }
 
 /* .primary-btn {
