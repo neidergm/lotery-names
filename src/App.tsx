@@ -1,3 +1,4 @@
+import { Analytics } from '@vercel/analytics/react';
 import Footer from "./components/Footer"
 import Header from "./components/Header"
 import NamesList from "./components/NamesList"
@@ -52,6 +53,7 @@ function App() {
           <Footer />
         </div>
       </main>
+      <Analytics />
     </>
   )
 }
